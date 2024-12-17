@@ -1,0 +1,6 @@
+**/target
+**/.idea
+/.git_bk
+
+**/.DS_Store
+project.private.config.json
