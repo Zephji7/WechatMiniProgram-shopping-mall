@@ -1,6 +1,3 @@
-# 前言
-This is a fork from the original repo. It was meant to supply setup proccedure, and modified certain config to run both the backend and the miniprogram.
-
 Environment:
 
 - mac mini m4
@@ -228,6 +225,16 @@ brew install tomcat@9
   <user username="robot" password="robot" roles="manager-script"/>
 ```
 
+- (optional) If your compiled .war file larger than 50MB, modify `tomcat/libexec/webapps/manager/WEB-INF/web.xml` in manager, default was 50MB
+
+```xml
+    <multipart-config>
+        <max-file-size>104857600</max-file-size>  <!-- 100MB -->
+        <max-request-size>104857600</max-request-size>  <!-- 100MB -->
+        <file-size-threshold>0</file-size-threshold>
+    </multipart-config>
+```
+
 - Run tomcat
 
 ```xml
@@ -246,4 +253,10 @@ brew services start tomcat@9
 
 - Check if [localhost:8080/yMybatis/good/get_all](http://localhost:8080/yMybatis/good/get_all) returns anything
 
-## 4.  Run the mini program
+## 4. Serve static images
+
+- navigate to the image dir and pwd
+- open tomcat manager page, under the Deploy section, enter `/images` as the context path, and paste ${your-local-path-to-the-image-dir} to the directory path. Deploy it.
+- Check if [localhost:8080/images/1.jpg](http://localhost:8080/images/1.jpg) returns the actual image.
+
+## 5.  Run the mini program
